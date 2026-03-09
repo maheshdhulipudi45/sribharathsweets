@@ -33,11 +33,11 @@ export const TestimonialsSection = () => {
         }
     ];
 
-    const CustomArrow = (props: any) => {
-        const { className, style, onClick, direction } = props;
+    const CustomNextArrow = (props: any) => {
+        const { className, style, onClick } = props;
         return (
             <div
-                className={`${className} custom-slick-arrow hidden md:flex items-center justify-center`}
+                className={`${className} custom-slick-arrow next-arrow hidden md:flex items-center justify-center`}
                 style={{
                     ...style,
                     display: "flex",
@@ -45,8 +45,30 @@ export const TestimonialsSection = () => {
                     borderRadius: "50%",
                     width: "48px",
                     height: "48px",
-                    zIndex: 10,
-                    boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
+                    zIndex: 20,
+                    boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1)",
+                    right: "-20px"
+                }}
+                onClick={onClick}
+            />
+        );
+    };
+
+    const CustomPrevArrow = (props: any) => {
+        const { className, style, onClick } = props;
+        return (
+            <div
+                className={`${className} custom-slick-arrow prev-arrow hidden md:flex items-center justify-center`}
+                style={{
+                    ...style,
+                    display: "flex",
+                    background: "#7a1c1c",
+                    borderRadius: "50%",
+                    width: "48px",
+                    height: "48px",
+                    zIndex: 20,
+                    boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1)",
+                    left: "-20px"
                 }}
                 onClick={onClick}
             />
@@ -56,17 +78,18 @@ export const TestimonialsSection = () => {
     const settings = {
         dots: true,
         infinite: true,
-        speed: 600,
+        speed: 800,
         slidesToShow: 3,
         slidesToScroll: 1,
         autoplay: true,
         autoplaySpeed: 5000,
         pauseOnHover: true,
-        nextArrow: <CustomArrow direction="right" />,
-        prevArrow: <CustomArrow direction="left" />,
+        cssEase: "ease-in-out",
+        nextArrow: <CustomNextArrow />,
+        prevArrow: <CustomPrevArrow />,
         responsive: [
             {
-                breakpoint: 1280,
+                breakpoint: 1024,
                 settings: {
                     slidesToShow: 2,
                     slidesToScroll: 1,
@@ -80,19 +103,6 @@ export const TestimonialsSection = () => {
                     slidesToScroll: 1,
                     arrows: false,
                     dots: true,
-                    centerMode: true,
-                    centerPadding: "20px"
-                }
-            },
-            {
-                breakpoint: 480,
-                settings: {
-                    slidesToShow: 1,
-                    slidesToScroll: 1,
-                    arrows: false,
-                    dots: true,
-                    centerMode: false,
-                    centerPadding: "0px"
                 }
             }
         ]
@@ -100,57 +110,54 @@ export const TestimonialsSection = () => {
 
     return (
         <section className="py-20 md:py-32 bg-[#fff7ed] relative overflow-hidden">
-            {/* Decorative background elements */}
             <div className="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-[#7a1c1c]/5 to-transparent pointer-events-none" />
-            <div className="container mx-auto px-4 sm:px-6 relative z-10 max-w-[1400px]">
 
+            <div className="container mx-auto px-6 relative z-10 max-w-[1200px]">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="text-center mb-16 md:mb-24"
+                    className="text-center mb-16"
                 >
                     <span className="text-[#d4a017] font-bold tracking-widest uppercase text-sm mb-4 block">Testimonials</span>
-                    <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#7a1c1c] mb-6 font-['Playfair_Display',serif]">
+                    <h2 className="text-4xl md:text-5xl font-bold text-[#7a1c1c] mb-6 font-['Playfair_Display',serif]">
                         What Our Customers Say
                     </h2>
                     <div className="w-24 h-1.5 bg-[#d4a017] mx-auto rounded-full opacity-80"></div>
                 </motion.div>
 
-                <div className="testimonial-wrapper px-0 md:px-12">
+                <div className="testimonial-wrapper relative px-2 md:px-8">
                     <Slider {...settings} className="slick-custom-wrapper">
                         {testimonials.map((item, i) => (
-                            <div key={i} className="px-2 sm:px-4 py-8">
+                            <div key={i} className="px-3 md:px-4 py-8 h-full">
                                 <motion.div
-                                    initial={{ opacity: 0, y: 20 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
+                                    initial={{ opacity: 0, scale: 0.95 }}
+                                    whileInView={{ opacity: 1, scale: 1 }}
                                     viewport={{ once: true }}
-                                    transition={{ delay: i * 0.1 }}
-                                    className="bg-white p-8 md:p-10 rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(122,28,28,0.08)] border border-[#d4a017]/10 relative h-full flex flex-col min-h-[320px] transition-all duration-300 group"
+                                    transition={{ duration: 0.5, delay: i * 0.1 }}
+                                    className="bg-white p-8 rounded-2xl shadow-md hover:shadow-xl hover:-translate-y-2 border border-[#d4a017]/10 relative flex flex-col transition-all duration-300 group h-full min-h-[300px]"
                                 >
-                                    <div className="absolute top-8 right-8 text-[#d4a017]/20 group-hover:text-[#d4a017]/30 transition-colors">
-                                        <Quote size={48} />
+                                    <div className="absolute top-6 right-6 text-[#d4a017]/20 group-hover:text-[#d4a017]/40 transition-colors duration-300">
+                                        <Quote size={40} />
                                     </div>
 
-                                    <div className="flex gap-1.5 mb-6">
+                                    <div className="flex gap-1 mb-5">
                                         {[...Array(5)].map((_, index) => (
-                                            <Star key={index} className="fill-[#d4a017] text-[#d4a017]" size={20} />
+                                            <Star key={index} className="fill-[#d4a017] text-[#d4a017]" size={18} />
                                         ))}
                                     </div>
 
-                                    <p className="text-neutral-600 font-body text-base md:text-lg leading-relaxed mb-8 flex-1 relative z-10 italic">
+                                    <p className="text-neutral-600 font-body text-base leading-relaxed mb-6 flex-1 break-words">
                                         "{item.text}"
                                     </p>
 
-                                    <div className="mt-auto border-t border-neutral-100 pt-6 flex items-center justify-between">
-                                        <div>
-                                            <h4 className="font-bold text-[#7a1c1c] text-lg lg:text-xl font-['Playfair_Display',serif] mb-1">
-                                                {item.name}
-                                            </h4>
-                                            <p className="text-sm text-[#d4a017] font-semibold uppercase tracking-wider">
-                                                {item.location}
-                                            </p>
-                                        </div>
+                                    <div className="border-t border-neutral-100 pt-5 mt-auto">
+                                        <h4 className="font-bold text-[#7a1c1c] text-lg font-['Playfair_Display',serif]">
+                                            {item.name}
+                                        </h4>
+                                        <p className="text-sm text-[#d4a017] font-semibold mt-1">
+                                            {item.location}
+                                        </p>
                                     </div>
                                 </motion.div>
                             </div>
@@ -158,49 +165,51 @@ export const TestimonialsSection = () => {
                     </Slider>
                 </div>
             </div>
+
             <style>{`
-        .slick-custom-wrapper .slick-track {
-          display: flex !important;
-          padding-bottom: 2rem;
-        }
-        .slick-custom-wrapper .slick-slide {
-          height: auto;
-        }
-        .slick-custom-wrapper .slick-slide > div {
-          height: 100%;
-        }
-        .testimonial-wrapper .slick-dots {
-          bottom: -15px;
-        }
-        .testimonial-wrapper .slick-dots li {
-          margin: 0 4px;
-        }
-        .testimonial-wrapper .slick-dots li button:before {
-          font-size: 14px;
-          color: #d4a017;
-          opacity: 0.25;
-          transition: all 0.3s ease;
-        }
-        .testimonial-wrapper .slick-dots li.slick-active button:before {
-          color: #7a1c1c;
-          opacity: 1;
-          transform: scale(1.3);
-        }
-        .custom-slick-arrow::before {
-          font-size: 20px !important;
-          color: white !important;
-          font-family: inherit !important;
-          content: '→' !important;
-        }
-        .custom-slick-arrow.slick-prev::before {
-          content: '←' !important;
-        }
-        @media (max-width: 768px) {
-          .testimonial-wrapper {
-            padding-bottom: 3rem;
-          }
-        }
-      `}</style>
+                .slick-custom-wrapper .slick-track {
+                    display: flex !important;
+                }
+                .slick-custom-wrapper .slick-slide {
+                    height: inherit !important;
+                    display: flex !important;
+                }
+                .slick-custom-wrapper .slick-slide > div {
+                    height: 100%;
+                    width: 100%;
+                }
+                .custom-slick-arrow::before {
+                    font-size: 20px !important;
+                    color: white !important;
+                    content: '→' !important;
+                    opacity: 1 !important;
+                    line-height: 1;
+                }
+                .custom-slick-arrow.prev-arrow::before {
+                    content: '←' !important;
+                }
+                .custom-slick-arrow:hover {
+                    background: #8f2121 !important;
+                    transform: scale(1.05);
+                }
+                .testimonial-wrapper .slick-dots {
+                    bottom: -30px;
+                }
+                .testimonial-wrapper .slick-dots li {
+                    margin: 0 4px;
+                }
+                .testimonial-wrapper .slick-dots li button:before {
+                    font-size: 14px;
+                    color: #d4a017;
+                    opacity: 0.25;
+                    transition: all 0.3s ease;
+                }
+                .testimonial-wrapper .slick-dots li.slick-active button:before {
+                    color: #7a1c1c;
+                    opacity: 1;
+                    transform: scale(1.3);
+                }
+            `}</style>
         </section>
     );
 };
